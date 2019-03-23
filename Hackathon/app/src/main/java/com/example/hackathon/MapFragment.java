@@ -43,6 +43,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.util.List;
@@ -135,22 +137,25 @@ public class MapFragment extends Fragment {
                     mMap.addMarker(new MarkerOptions().position(myCurrentlocation).title("My location").snippet("and snippet")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myCurrentlocation, 17));
-                    FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-                    CollectionReference pointsRef = rootRef.collection("points_au");
-                    DocumentReference parkRef = pointsRef.document("Park");
-                    parkRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("Shops")
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    GeoPoint geo = document.getGeoPoint("geo");
-                                    String name = document.getString("name");
-                                    double lat = geo.getLatitude();
-                                    double lng = geo.getLongitude();
-                                    LatLng latLng = new LatLng(lat, lng);
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("DEBUG", document.getString("desc"));
+                                    Log.d("DEBUG", document.getString("store_post"));
+                                    LatLng latLng = getLocationFromAddress(getContext(),document.getString("store_add"));
+                                    String name = document.getString("desc");
+                                    Log.d("DEBUG", latLng.toString());
+
                                     mMap.addMarker(new MarkerOptions().position(latLng).title(name));
                                 }
+                            }
+                            else{
+                                Log.d("DEBUG", "Error getting documents: ", task.getException());
                             }
                         }
                     });
