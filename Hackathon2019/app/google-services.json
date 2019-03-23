@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "735661489654-tv1m9k3a6vst0gopsd1i4j1ht6aq0goh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hackathon2019",
+            "certificate_hash": "2aa63259d1170650793b592dccb2aceda3879f49"
+          }
+        },
+        {
           "client_id": "735661489654-2umj8evmta0kjjnpvukq7m81f4dp8gm7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

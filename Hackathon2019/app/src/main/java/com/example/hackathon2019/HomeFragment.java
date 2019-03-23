@@ -16,11 +16,13 @@ import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+//import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -37,6 +39,7 @@ public class HomeFragment extends Fragment {
     private List<BlogPost> blog_list;
 
     private FirebaseFirestore firebaseFirestore;
+   // private FirebaseAuth firebaseAuth;
     private BlogRecyclerAdapter blogRecyclerAdapter;
 
 
@@ -49,11 +52,17 @@ public class HomeFragment extends Fragment {
         blog_list = new ArrayList<>();
         blog_list_view = view.findViewById(R.id.blog_list_view);
 
+       // firebaseAuth = FirebaseAuth.getInstance();
+
         blogRecyclerAdapter = new BlogRecyclerAdapter(blog_list);
         blog_list_view.setLayoutManager(new LinearLayoutManager(container.getContext()));
         blog_list_view.setAdapter(blogRecyclerAdapter);
 
+
+        //if (firebaseAuth.getCurrentUser() != null){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
         db.collection("Shops").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -70,6 +79,8 @@ public class HomeFragment extends Fragment {
                     Log.d("DEBUG", "Error getting documents: ", task.getException());
                 }
             }});
+
+        //}
 
         return view;
 
