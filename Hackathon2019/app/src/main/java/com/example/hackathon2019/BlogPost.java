@@ -3,16 +3,12 @@ package com.example.hackathon2019;
 
 import java.util.Date;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
 public class BlogPost {
 
     public String user_id, image_url, desc;
-
-    public BlogPost(Date timestamp) {
-
-    }
-
     public Date timestamp;
-
 
     public BlogPost(){
 
