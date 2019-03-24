@@ -52,29 +52,23 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         holder.setDescText(desc_data);
 
         String image_url = blog_list.get(position).getImage_url();
-        holder.setBlogImage(image_url);
+       // holder.setBlogImage(image_url);
 
-        String user_id = blog_list.get(position).getUser_id();
-        firebaseFirestore.collection("Shops").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
+       /*  String user_id = blog_list.get(position).getUser_id();
+        firebaseFirestore.collection("Shops").document().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+           @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    String userName = task.getResult().getString("name");
-                    String userImage = task.getResult().getString("image");
+                if (task.isSuccessful()) {
+                    String userName = task.getResult().getString("store_name");
+                    String userImage = task.getResult().getString("store_desc");
                     holder.setUserData(userName, userImage);
 
-            }else {
+                } else {
 
                 }
-                }
+            }
+        });*/
 
-        });
-
-
-        long milliseconds = blog_list.get(position).getTimestamp().getTime();
-        String dateString = DateFormat.format("dd/MM/yyyy",new Date(milliseconds)).toString();
-
-        holder.setTime(dateString);
     }
 
     @Override
@@ -106,10 +100,10 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         public void setBlogImage(String downloadUrl){
 
-            blogImageView = mView.findViewById(R.id.blog_image);
+           /*  blogImageView = mView.findViewById(R.id.blog_image);
             RequestOptions requestOptions = new RequestOptions();
             requestOptions.placeholder(R.drawable.image_placeholder);
-            Glide.with(context).load(downloadUrl).into(blogImageView);
+            Glide.with(context).load(downloadUrl).into(blogImageView); */
         }
 
         public void setTime(String date){

@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     for(QueryDocumentSnapshot document:task.getResult()) {
-                        Log.d("Debug", document.getString("desc"));
+                        Log.d("Debug", document.getString("store_desc"));
 
                         BlogPost blogPost = document.toObject(BlogPost.class);
                         blog_list.add(blogPost);

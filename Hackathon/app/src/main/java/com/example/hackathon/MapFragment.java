@@ -145,10 +145,10 @@ public class MapFragment extends Fragment {
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("DEBUG", document.getString("desc"));
+                                    Log.d("DEBUG", document.getString("store_desc"));
                                     Log.d("DEBUG", document.getString("store_post"));
                                     LatLng latLng = getLocationFromAddress(getContext(),document.getString("store_add"));
-                                    String name = document.getString("desc");
+                                    String name = document.getString("store_desc");
                                     Log.d("DEBUG", latLng.toString());
 
                                     mMap.addMarker(new MarkerOptions().position(latLng).title(name));
